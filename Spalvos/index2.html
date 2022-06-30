@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>SPALVOS</title>
+	</head>
+	<body>
+		<div id="spalvos">
+			<button type="button" onclick="krauti()">Įkrauti</button>
+		</div>
+		<script>
+		async function krauti() {
+			let myObject = await fetch("spalvos.json");
+			let json_tekstas = await myObject.json();
+			let tekstas = '';
+			for (let a in json_tekstas['colors']) {
+				tekstas +=  '<div style="width:100px; height:100px; background-color:' + json_tekstas['colors'][a]['code']['hex'] + '">' + json_tekstas['colors'][a]['color'] + '</div><br />';
+			}
+			document.getElementById("spalvos").innerHTML = tekstas;
+		}
+		</script>
+	</body>
+</html>

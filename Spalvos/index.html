@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>SPALVOS</title>
+	</head>
+	<body>
+		<div id="spalvos">
+			<button type="button" onclick="krauti()">Įkrauti</button>
+		</div>
+		<script>
+		function krauti() {
+			const spalvos = new XMLHttpRequest();
+			spalvos.onload = function() {
+				let tekstas = '';
+				let json_tekstas = JSON.parse(this.responseText);
+				for (let a in json_tekstas['colors']) {
+					tekstas +=  '<div style="width:100px; height:100px; background-color:' + json_tekstas['colors'][a]['code']['hex'] + '">' + json_tekstas['colors'][a]['color'] + '</div><br />';
+				}
+				document.getElementById("spalvos").innerHTML = tekstas;	
+			}
+			spalvos.open("GET", "spalvos.json");
+			spalvos.send();
+		}
+		
+		
+
+		
+
+
+		</script>
+	</body>
+</html>
