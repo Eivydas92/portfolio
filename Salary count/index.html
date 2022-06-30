@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <h1>2022 metų darbo užmokesčio skaičiuoklė</h1>
+		<form class="skaiciuokle">
+			<table>
+				<tbody>
+					<tr>
+						<td>
+							Atlyginimas „ant popieriaus“
+						</td>
+						<td>
+							<input id="ant_popieriaus" name="ant_popieriaus" type="text" value="0" /> €
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<input id="papildoma_pensija" type="checkbox" name="papildoma_pensija" value="papildoma_pensija" /> <label for="papildoma_pensija">Kaupiami 2% papildomos pensijos</label>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><hr /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input id="count" type="button" value="Skaičiuoti" onClick="skaičiuoti();" /></td>
+					</tr>
+					<tr>
+						<td colspan="2"><hr /></td>
+					</tr>
+					<tr class="special">
+						<td>Priskaičiuotas atlyginimas „ant popieriaus“</td>
+						<td><input id="result_ant_popieriaus" type="text" value="" readonly="readonly" /> €</td>
+					</tr>
+					<tr>
+						<td>Pritaikytas NPD</td>
+						<td><input id="result_npd" type="text" value="" readonly="readonly" /> €</td>
+					</tr>
+					<tr>
+						<td>Pajamų mokestis 15%</td>
+						<td><input id="result_pajamu_mokestis" type="text" value="" readonly="readonly" /> €</td>
+					</tr>
+					<tr>
+						<td>Sveikatos draudimas 6%</td>
+						<td><input id="result_psd" type="text" value="" readonly="readonly" /> €</td>
+					</tr>
+					<tr>
+						<td>Pensijų ir soc. draudimas 3%<br />(5%, jeigu kaupiami 2% papildomos pensijos)</td>
+						<td><input id="result_vsd" type="text" value="" readonly="readonly" /> €</td>
+					</tr>
+					<tr class="special">
+						<td>Išmokamas atlyginimas „į rankas“</td>
+						<td><input id="result_i_rankas" type="text" value="" readonly="readonly" /> €</td>
+					</tr>
+					<tr>
+						<td colspan="2">Darbdavio sumokami mokesčiai</td>
+					</tr>
+					<tr>
+						<td>Sodra 31,18%</td>
+						<td><input id="result_sodra" type="text" value="" readonly="readonly" /> €</td>
+					</tr>
+					<tr class="special">
+						<td>Visa darbo vietos kaina</td>
+						<td><input id="result_viso" type="text" value="" readonly="readonly" /> €</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<script>
+		function skaičiuoti() {
+
+		}
+		</script>
+		<style>
+			input[type="text"] {
+				width: 100px;
+				border: 1px solid #ccc;
+				padding: 3px 5px;
+			}
+			label {
+				cursor: pointer;
+			}
+			input[type="button"] {
+				border: none;
+				background: #ccc;
+				display: block;
+				padding: 10px 20px;
+				color: #333;
+				text-transform: uppercase;
+				cursor: pointer;
+			}
+			input[readonly] {
+				background: #eee;
+			}
+			#count {
+				float: right;
+				margin-right: 10px;
+			}
+		</style>
+
+        <script>
+
+function skaičiuoti() {
+			var atlyginimas_ant_popieriaus = parseFloat(document.getElementById("ant_popieriaus").value);
+			var npd = (310 - 0.5 * (atlyginimas_ant_popieriaus - 380));
+			if (npd < 0) {
+				npd = 0;
+			} else {
+				if (atlyginimas_ant_popieriaus <= 310) {
+					npd = atlyginimas_ant_popieriaus;
+				} else {
+					if (npd > 310) {
+						npd = 310;
+					}
+				}
+			}
+			var pajamu_mokestis = (atlyginimas_ant_popieriaus - npd) * 0.15;
+			var sveikatos_draudimas = atlyginimas_ant_popieriaus * 0.06;
+			var papildoma_pensija = document.getElementById("papildoma_pensija").checked;
+			if (papildoma_pensija == true) {
+				soc_percentage = 0.05;
+			} else {
+				soc_percentage = 0.03;
+			}
+			pensiju_soc_draudimas = atlyginimas_ant_popieriaus * soc_percentage;
+			atlyginimas_i_rankas = atlyginimas_ant_popieriaus - pajamu_mokestis - sveikatos_draudimas - pensiju_soc_draudimas;	
+			darbdavio_mokesciai = atlyginimas_ant_popieriaus * 0.3118;
+			darbo_vietos_kaina = darbdavio_mokesciai + atlyginimas_ant_popieriaus;
+			document.getElementById("result_ant_popieriaus").value = atlyginimas_ant_popieriaus.toFixed(2);
+			document.getElementById("result_npd").value = npd.toFixed(2);
+			document.getElementById("result_pajamu_mokestis").value = pajamu_mokestis.toFixed(2);
+			document.getElementById("result_psd").value = sveikatos_draudimas.toFixed(2);
+			document.getElementById("result_vsd").value = pensiju_soc_draudimas.toFixed(2);
+			document.getElementById("result_i_rankas").value = atlyginimas_i_rankas.toFixed(2);
+			document.getElementById("result_sodra").value = darbdavio_mokesciai.toFixed(2);
+			document.getElementById("result_viso").value = darbo_vietos_kaina.toFixed(2);
+		}
+
+
+
+           
+            
+
+
+
+        </script>
+    
+</body>
+</html>
