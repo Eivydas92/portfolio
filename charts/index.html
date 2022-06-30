@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script>
+
+var popCanvas = document.getElementById("myChart");
+
+
+var popData = {
+  datasets: [{
+    label: ['Duomenu pateikimas'],
+    data: [{
+      x: 100,
+      y: 0,
+      r: 10
+    }, {
+      x: 60,
+      y: 30,
+      r: 20
+    }, {
+      x: 40,
+      y: 60,
+      r: 25
+    }, {
+      x: 80,
+      y: 80,
+      r: 50
+    }, {
+      x: 20,
+      y: 30,
+      r: 25
+    }, {
+      x: 0,
+      y: 100,
+      r: 5
+    }],
+    backgroundColor: "#FF9966"
+  }]
+};
+
+var bubbleChart = new Chart(popCanvas, {
+  type: 'bubble',
+  data: popData
+});
+  
+  
+</script>
+
+
+
+</body>
+</html>
