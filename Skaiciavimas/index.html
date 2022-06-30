@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <p>Skaičiavimas 1: <output id="rezultatas1"></output></p>
+	<p>Skaičiavimas 2: <output id="rezultatas2"></output></p>
+    <button onclick="pradėtiDarbą()">Pradėti</button> 
+    <button onclick="sustabdytiDarbą()">Sustabdyti</button><br />
+	<button onclick="pradėtiDarbą2()">Pradėti kitą darbą</button> 
+	<button onclick="sustabdytiDarbą2()">Sustabdyti kitą darbą</button>
+    <script>
+      let darbininkas1;
+      function pradėtiDarbą() {
+        if(typeof(darbininkas1) == "undefined") {
+          darbininkas1 = new Worker("darbas.js");
+        }
+        darbininkas1.onmessage = function(event) {
+          document.getElementById("rezultatas1").innerHTML = event.data;
+        };
+      }
+      function sustabdytiDarbą() { 
+        darbininkas1.terminate();
+        darbininkas1 = undefined;
+      }
+	  
+	let darbininkas2;
+      function pradėtiDarbą2() {
+        if(typeof(darbininkas2) == "undefined") {
+          darbininkas2 = new Worker("darbas.js");
+        }
+        darbininkas2.onmessage = function(event) {
+          document.getElementById("rezultatas2").innerHTML = event.data;
+        };
+      }
+      function sustabdytiDarbą2() { 
+        darbininkas2.terminate();
+        darbininkas2 = undefined;
+      }
+	  
+    </script>
+  </body>
+</html>
