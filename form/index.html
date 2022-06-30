@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <form method="post" name="forma" onSubmit="return registracija()";>
+        <table>
+            <tbody>
+                <tr>
+                    <td>Vardas*</td><td><input type="text" name="vardas" /></td>
+                </tr>
+                <tr>
+                    <td>Pavardė*</td><td><input type="text" name="pavarde" /></td>
+                </tr>
+                <tr>
+                    <td>El. pašto adresas*</td><td><input type="text" name="el_pastas" /></td>
+                </tr>
+                <tr>
+                    <td>Tel. numeris</td><td><input type="text" name="telefonas" /></td>
+                </tr>
+                <tr>
+                    <td>Slaptažodis*</td><td><input type="password" name="slaptazodis" /></td>
+                </tr>
+                <tr>
+                    <td>Pakartoti slaptažodį*</td><td><input type="password" name="pakartoti_slaptazodi" /></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input onClick="registracija()" type="submit" name="registruotis" value="Registruotis" /></td>
+                </tr>
+                
+            </tbody>
+        </table>
+        <div id="pranesimas"></div>
+    </form>
+  </body>
+</html>
+
+
