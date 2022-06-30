@@ -1,0 +1,29 @@
+}
+
+.flexbox-container{
+    background-color: blueviolet ;
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap-reverse;
+   justify-content: center; 
+   align-items: center;
+
+}
+
+
+.item{
+width: 100px;
+height: 100px;
+background-color: blue;
+flex-grow: 3;
+flex-shrink: 2;
+
+
+}
+
+.items1 {
+
+    background-color: cadetblue;
+    flex-basis: 200px;
+    align-self: flex-end;
+}
