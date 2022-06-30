@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+	
+    
+    </head>
+	<body>
+		<main>
+		
+		
+		
+		
+		
+		
+			<!-- DIRBAME NUO ČIA -->
+			<div class="title">SKAIČIUOTUVAS</div>
+			<table border="2">
+				<tr>
+					<td><input type="button" class="button_small" value="c" onclick="valyti()"/> </td>
+					<td colspan="3"><input type="text" id="textval"/></td>
+				</tr>
+				<tr>
+					<td><input type="button" class="button_small" value="+" onclick="rodyti('+')"/> </td>
+					<td><input type="button" value="1" onclick="rodyti('1')"/> </td>
+					<td><input type="button" value="2" onclick="rodyti('2')"/> </td>
+					<td><input type="button" value="3" onclick="rodyti('3')"/> </td>
+				</tr>
+				<tr>
+					<td><input type="button" class="button_small" value="-" onclick="rodyti('-')"/> </td>
+					<td><input type="button" value="4" onclick="rodyti('4')"/> </td>
+					<td><input type="button" value="5" onclick="rodyti('5')"/> </td>
+					<td><input type="button" value="6" onclick="rodyti('6')"/> </td>
+				</tr>
+
+                <tr>
+					<td><input type="button" class="button_small" value="*" onclick="rodyti('*')"/> </td>
+					<td><input type="button" value="7" onclick="rodyti('7')"/> </td>
+					<td><input type="button" value="8" onclick="rodyti('8')"/> </td>
+					<td><input type="button" value="9" onclick="rodyti('9')"/> </td>
+				</tr>
+
+
+
+
+				<tr>
+					<td><input type="button" class="button_small" value="/" onclick="rodyti('/')"/> </td>
+					<td><input type="button" value="." onclick="rodyti('.')"/> </td>
+					<td><input type="button" value="0" onclick="rodyti('0')"/> </td>
+					<td><input type="button" value="=" onclick="skaičiuoti()"/> </td>
+				</tr>
+			</table>
+			<!-- DIRBAME IKI ČIA -->
+			
+			
+			
+		</main>
+	</body>
+	
+	
+	
+	<script>
+		function rodyti(val) {
+			document.getElementById("textval").value+=val;
+		}
+		function skaičiuoti() {
+			let x = document.getElementById("textval").value;
+			let y = eval(x);
+			document.getElementById("textval").value = y;
+		}
+		function valyti() {
+			document.getElementById("textval").value = "";
+		}
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<style>
+		body * {
+			font-family: 'Orbitron', sans-serif;
+		}
+		main {
+			position: absolute;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			width: 300px;
+			height: 240px;
+			top: 50%;
+			left: 50%;
+			margin-top: -120px;
+			margin-left: -150px;
+			background: #ccc;
+			background: linear-gradient(333deg, #555 0%, #777 100%);
+			border: 1px solid #777;
+			border-radius: 10px;
+			-webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+			box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px 5px rgba(0,0,0,0);
+		}
+		.title {
+			font-size: 20px;
+			font-weight: bold;
+			font-family: Arial;
+			color: rgba(0, 0, 0, 0.3);
+			margin-bottom: 5px;
+			background: rgba(255, 255, 255, 0.1);
+			border-radius: 10px;
+			padding: 5px 15px;
+			width: 75%;
+			text-align: center;
+			-webkit-box-shadow: 10px 10px 10px 7px red;
+			box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.1);
+		}
+		table, table tr, table tr td {
+			border: none;
+		}
+		table tr td {
+			text-align: center;
+		}
+		input[type="button"] {
+			border-style: solid;
+			border-color: #000;
+			border-width: 0 0 2px 0;
+			border-radius: 5px;
+			color: white;
+			width: 70px;
+			height: 30px;
+			line-height: 30px;
+			background: #333;
+			cursor: pointer;
+		}
+		input.button_small {
+			width: 30px;
+		}
+		input[type="text"] {
+			border-radius: 3px;
+			text-align: right;
+			color: #000;
+			width: 100%
+			border: 2px solid #aaa;
+			background: #bccd95;
+			padding: 0 10px;
+			height: 30px;
+			line-height: 30px;
+		}
+	</style>
+</html>
