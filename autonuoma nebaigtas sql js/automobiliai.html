@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="lt">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.98.0">
+    <title>Automobilių nuoma</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <meta name="theme-color" content="#712cf9">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .b-example-divider {
+            height: 3rem;
+            background-color: rgba(0, 0, 0, .1);
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh;
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor;
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden;
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .icon-list li::before {
+            display: block;
+            flex-shrink: 0;
+            width: 1.5em;
+            height: 1.5em;
+            margin-right: .5rem;
+            content: "";
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23212529' viewBox='0 0 16 16'%3E%3Cpath d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5z'/%3E%3C/svg%3E") no-repeat center center / 100% auto;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="col-lg-8 mx-auto p-3 py-md-5">
+        <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+            <a href="/automobiliai" class="d-flex align-items-center text-dark text-decoration-none">
+                <span class="fs-4">Automobilių nuoma</span>
+            </a>
+        </header>
+
+        <main>
+            <div class="row g-5">
+                <div class="col-md-12">
+                    <h2>Automobilių sąrašas</h2>
+                    <div id="automobiliai"></div>
+                </div>
+            </div>
+
+            <div class="row g-5" style="display: none;" id="pasirinktas_automobilis">
+                <div class="col-md-6">
+                    <h3>Automobilio informacija</h3>
+                    <ul class="icon-list ps-0">
+                        <li class="d-flex align-items-start mb-1">ID: <b class="auto_id"></b></li>
+                        <li class="d-flex align-items-start mb-1">Numeris: <b class="auto_numeris"></b></li>
+                        <li class="d-flex align-items-start mb-1">Markė: <b class="auto_marke"></b></li>
+                        <li class="d-flex align-items-start mb-1">Modelis: <b class="auto_modelis"></b></li>
+                        <li class="d-flex align-items-start mb-1">Automobilio tipas: <b class="auto_tipas"></b></li>
+                        <li class="d-flex align-items-start mb-1">Aprašymas:</li>
+                        <li class="d-flex align-items-start mb-1"><b class="auto_aprasymas"></b></li>
+                        <li class="d-flex align-items-start mb-1">Pastabos:</li>
+                        <li class="d-flex align-items-start mb-1"><b class="auto_pastabos"></b></li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h3>Užsakyti automobilį</h3>
+
+                    <div id="form_warning" class="alert alert-warning" role="alert" style="display: none;">
+                        <b id="form_warning_text"></b>
+                    </div>
+
+                    <form id="automobilio_uzsakymas">
+                        <input type="hidden" id="uzaskymas_auto_id">
+
+                        <div class="mb-3">
+                            <label for="uzaskymas_klientas" class="form-label">Klientas</label>
+                            <select class="form-select" id="uzaskymas_klientas">
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Data nuo</span>
+                            <input type="date" class="form-control" id="uzaskymas_data_nuo">
+                            <span class="input-group-text">Data iki</span>
+                            <input type="date" class="form-control" id="uzaskymas_data_iki">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="uzaskymas_suma" class="form-label">Užsakymo suma</label>
+                            <input type="number" class="form-control" id="uzaskymas_suma">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="uzaskymas_busena" class="form-label">Užsakymo būsena</label>
+                            <select class="form-select" id="uzaskymas_busena">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="uzaskymas_pastabos" class="form-label">Pastabos</label>
+                            <textarea class="form-control" id="uzaskymas_pastabos"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Siųsti</button>
+                    </form>
+                </div>
+            </div>
+            <div class="row g-5" style="display: none;" id="pasirinktas_automobilis">
+                <div class="col-md-12">
+                    <h3>Užsakymai</h3>
+                    <div id="automobilio_uzsakymai"></div>
+                </div>
+            </div>
+
+        </main>
+        <footer class="pt-5 my-5 text-muted border-top">
+            Automobilių nuoma &middot; &copy; 2022
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const automobiliai = document.getElementById("automobiliai");
+        const pasirinktas_automobilis = document.getElementById("pasirinktas_automobilis");
+        const automobilio_uzsakymai = document.getElementById("automobilio_uzsakymai");
+
+        const automobilio_uzsakymas = document.getElementById("automobilio_uzsakymas"); // forma
+
+        const uzaskymas_auto_id = document.getElementById("uzaskymas_auto_id");
+        const uzaskymas_klientas = document.getElementById("uzaskymas_klientas");
+        const uzaskymas_busena = document.getElementById("uzaskymas_busena"); 
+        const uzaskymas_suma = document.getElementById("uzaskymas_suma"); 
+        const uzaskymas_data_nuo = document.getElementById("uzaskymas_data_nuo"); 
+        const uzaskymas_data_iki = document.getElementById("uzaskymas_data_iki"); 
+        const uzaskymas_pastabos = document.getElementById("uzaskymas_pastabos"); 
+
+
+
+        axios.get('http://localhost:3000/api/v1/automobiliai')
+            .then(function (resp) {
+                if (resp.data.length > 0) {
+                    // automobilių yra
+
+                    var html = '<table class="table table-striped">';
+
+                    html += '<tr>';
+                    html += '<th>#</th>';
+                    html += '<th>Numeris</th>';
+                    html += '<th>Markė</th>';
+                    html += '<th>Modelis</th>';
+                    html += '<th>Tipas</th>';
+                    html += '<th>Valdymas</th>';
+                    html += '</tr>';
+
+                    resp.data.forEach(el => {
+                        // console.log(el);
+                        html += '<tr>';
+                        html += '<td>' + el.id + '</td>';
+                        html += '<td><a class="auto_link" href="#auto_id_' + el.id + '" data="' + el.id + '">' + el.numeris + '</a></td>';
+                        html += '<td>' + el.marke + '</td>';
+                        html += '<td>' + el.modelis + '</td>';
+                        html += '<td>' + el.tipas + '</td>';
+                        html += '<td></td>';
+                        html += '</tr>';
+                    });
+                    html += '</table>';
+
+                    automobiliai.innerHTML = html;
+
+                    var auto_links = document.getElementsByClassName("auto_link");
+                    for (let i = 0; i < auto_links.length; i++) {
+                        auto_links[i].onclick = function () {
+                            let auto_id = this.getAttribute('data');
+                            // console.log(auto_id);
+
+                            gautiAutomobili(auto_id);
+                        };
+                    }
+
+                } else {
+                    // automobilių nėra
+                    automobiliai.innerHTML = "<span>Automobilių sąrašas tuščias.</span>";
+                }
+
+
+                // console.log(resp);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+
+
+        async function gautiAutomobili(auto_id) {
+            try {
+                const resp = await axios.get('/api/v1/automobiliai/' + auto_id);
+                // console.log(resp);
+
+                if (resp.data.length > 0) {
+                    pasirinktas_automobilis.style.display = "flex";
+                    pasirinktas_automobilis.getElementsByClassName("auto_id")[0].innerHTML = resp.data[0].id;
+                    pasirinktas_automobilis.getElementsByClassName("auto_numeris")[0].innerHTML = resp.data[0].numeris;
+                    pasirinktas_automobilis.getElementsByClassName("auto_marke")[0].innerHTML = resp.data[0].marke;
+                    pasirinktas_automobilis.getElementsByClassName("auto_modelis")[0].innerHTML = resp.data[0].modelis;
+                    pasirinktas_automobilis.getElementsByClassName("auto_tipas")[0].innerHTML = resp.data[0].tipas;
+                    pasirinktas_automobilis.getElementsByClassName("auto_aprasymas")[0].innerHTML = resp.data[0].aprasymas;
+                    pasirinktas_automobilis.getElementsByClassName("auto_pastabos")[0].innerHTML = resp.data[0].pastabos;
+
+                    // formos id
+                    uzaskymas_auto_id.setAttribute("value", resp.data[0].id);
+
+                    gautiAutomobilioUzsakymus(auto_id);
+
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        async function gautiAutomobilioUzsakymus(auto_id) {
+            try {
+                const resp = await axios.get('/api/v1/automobiliai/' + auto_id + "/uzsakymai");
+                // console.log(resp);
+
+                if (resp.data.length > 0) {
+                    var html = '<table class="table table-striped">';
+
+                    html += '<tr>';
+                    html += '<th>#</th>';
+                    html += '<th>Automobilis</th>';
+                    html += '<th>Numeris</th>';
+                    html += '<th>Kliento ID</th>';
+                    html += '<th>Klientas</th>';
+                    html += '<th>Nuo</th>';
+                    html += '<th>Iki</th>';
+                    html += '<th>Suma</th>';
+                    html += '<th>Būsena</th>';
+                    html += '<th>Pastabos</th>';
+                    html += '</tr>';
+
+                    resp.data.forEach(el => {
+                        // console.log(el);
+                        html += '<tr>';
+                        html += '<td>' + el.id + '</td>';
+                        html += '<td>' + el.automobilis + '</td>';
+                        html += '<td>' + el.numeris + '</td>';
+                        html += '<td>' + el.kliento_id + '</td>';
+                        html += '<td>' + el.klientas + '</td>';
+                        let date = new Date(el.data_nuo);
+                        html += '<td>' + date.toISOString().slice(0, 10) + '</td>';
+                        date = new Date(el.data_iki);
+                        html += '<td>' + date.toISOString().slice(0, 10) + '</td>';
+                        html += '<td>' + (new Intl.NumberFormat('lt-LT', { style: "currency", currency: "EUR" }).format(el.suma)) + '</td>';
+                        html += '<td>' + el.busena + '</td>';
+                        html += '<td>' + (el.pastabos == null ? "" : el.pastabos) + '</td>';
+                        html += '</tr>';
+                    });
+                    html += '</table>';
+
+                    automobilio_uzsakymai.innerHTML = html;
+                } else {
+                    automobilio_uzsakymai.innerHTML = "<span>Automobilio užsakymų sąrašas tuščias.</span>";
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+
+        async function gautiKlientusSelect() {
+            try {
+                const resp = await axios.get('/api/v1/klientai/select');
+                // console.log(resp);
+
+                if (resp.data.length > 0) {
+
+                    uzaskymas_klientas.innerHTML = "";
+                    resp.data.forEach(el => {
+                        uzaskymas_klientas.innerHTML += '<option value="' + el.id + '">' + el.klientas + '</option>';
+                    });
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        gautiKlientusSelect();
+        
+        async function gautiUzsakymuBusenasSelect() {
+            try {
+                const resp = await axios.get('/api/v1/uzsakymuBusenos/select');
+                // console.log(resp);
+
+                if (resp.data.length > 0) {
+
+                    uzaskymas_busena.innerHTML = "";
+                    resp.data.forEach(el => {
+                        uzaskymas_busena.innerHTML += '<option value="' + el.id + '">' + el.pavadinimas + '</option>';
+                    });
+                }
+
+            } catch (error) {
+                console.error(error);
+            }
+        }
+        gautiUzsakymuBusenasSelect();
+
+
+        async function uzsakyti() {
+            try {
+                const resp = await axios.post('/api/v1/uzsakyti', {
+                    auto_id : uzaskymas_auto_id.value,
+                    kliento_id : uzaskymas_klientas.value,
+                    busenos_id : uzaskymas_busena.value,
+                    suma : uzaskymas_suma.value,
+                    data_nuo : uzaskymas_data_nuo.value,
+                    data_iki : uzaskymas_data_iki.value,
+                    data_pastabos : uzaskymas_pastabos.value
+                }, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                });
+                console.log(resp);
+
+                // TO DO 
+                // jei užsakymas sėkmingas atnaujinti užsakymų sąrašą
+                // jei nesėkmingas atvaizduoti nesėkmingo užsakymo priežastis 
+
+                
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        automobilio_uzsakymas.onsubmit = function () {
+            uzsakyti();
+            return false;
+        }
+        
+
+
+    
+
+
+
+</script>
+
+</body>
+
+</html>
